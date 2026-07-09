@@ -3,9 +3,16 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Major词条生成器</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
         :root {
             --bg: #f0f0f0;
             --bg2: #ffffff;
@@ -35,20 +42,14 @@
             --success: #66bb6a;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
-            font-family: 'Microsoft YaHei UI', 'PingFang SC', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei UI', sans-serif;
             background: var(--bg);
             color: var(--ink);
             min-height: 100vh;
-            padding: 20px;
+            padding: 16px;
             transition: background 0.3s, color 0.3s;
-            -webkit-tap-highlight-color: transparent;
+            padding-bottom: 40px;
         }
 
         .container {
@@ -74,29 +75,24 @@
         }
 
         .icon-btn {
-            width: 40px;
-            height: 40px;
+            width: 44px;
+            height: 44px;
             border: none;
             border-radius: 50%;
             background: var(--btn-face);
             color: var(--ink);
-            font-size: 18px;
+            font-size: 20px;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.2s;
-        }
-
-        .icon-btn:active {
-            transform: scale(0.95);
         }
 
         .categories-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 10px;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
         }
 
         .category-card {
@@ -129,68 +125,57 @@
 
         .lock-checkbox input {
             cursor: pointer;
-            width: 16px;
-            height: 16px;
+            width: 18px;
+            height: 18px;
         }
 
         .category-select {
             width: 100%;
-            padding: 10px;
+            padding: 12px 30px 12px 12px;
             border: 1px solid var(--rule);
             border-radius: 6px;
             background: var(--bg2);
             color: var(--ink);
-            font-size: 14px;
+            font-size: 15px;
             cursor: pointer;
             outline: none;
-            transition: border-color 0.2s;
             -webkit-appearance: none;
             appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
             background-repeat: no-repeat;
-            background-position: right 10px center;
-            padding-right: 30px;
-        }
-
-        .category-select:focus {
-            border-color: var(--accent);
+            background-position: right 12px center;
         }
 
         .btn {
-            padding: 12px 20px;
+            padding: 14px 20px;
             border: none;
             border-radius: var(--radius);
-            font-size: 15px;
+            font-size: 16px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.2s;
             font-family: inherit;
-        }
-
-        .btn:active {
-            transform: scale(0.98);
+            min-height: 48px;
         }
 
         .btn-primary {
             width: 100%;
             background: var(--accent);
             color: white;
-            margin-bottom: 10px;
-            padding: 16px 20px;
-            font-size: 17px;
+            margin-bottom: 12px;
+            font-size: 18px;
         }
 
         .btn-row {
             display: flex;
-            gap: 8px;
-            margin-bottom: 10px;
+            gap: 10px;
+            margin-bottom: 12px;
         }
 
         .btn-row .btn {
             flex: 1;
             margin: 0;
             padding: 12px;
-            font-size: 14px;
+            font-size: 15px;
         }
 
         .btn-secondary {
@@ -199,8 +184,9 @@
         }
 
         .btn-small {
-            padding: 8px 14px;
-            font-size: 13px;
+            padding: 10px 16px;
+            font-size: 14px;
+            min-height: 40px;
         }
 
         .btn-danger {
@@ -223,46 +209,67 @@
             bottom: 0;
             background: rgba(0,0,0,0.5);
             z-index: 1000;
-            align-items: center;
-            justify-content: center;
-            padding: 16px;
+            padding: 0;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
         }
 
         .modal-overlay.active {
-            display: flex;
+            display: block;
         }
 
         .modal {
             background: var(--bg);
-            border-radius: 12px;
             width: 100%;
-            max-width: 700px;
-            max-height: 90vh;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+
+        @media (min-width: 600px) {
+            .modal-overlay {
+                padding: 20px;
+                display: none;
+                align-items: center;
+                justify-content: center;
+            }
+            .modal-overlay.active {
+                display: flex;
+            }
+            .modal {
+                border-radius: 12px;
+                max-width: 550px;
+                max-height: 90vh;
+                min-height: auto;
+                box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            }
         }
 
         .modal-header {
-            padding: 16px 20px;
+            padding: 16px;
             border-bottom: 1px solid var(--rule);
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-shrink: 0;
+            background: var(--bg);
+            position: sticky;
+            top: 0;
+            z-index: 10;
         }
 
         .modal-title {
-            font-size: 16px;
+            font-size: 18px;
             font-weight: bold;
         }
 
         .modal-close {
-            width: 32px;
-            height: 32px;
+            width: 40px;
+            height: 40px;
             border: none;
             background: transparent;
             color: var(--muted);
-            font-size: 24px;
+            font-size: 28px;
             cursor: pointer;
             border-radius: 50%;
             display: flex;
@@ -270,41 +277,65 @@
             justify-content: center;
         }
 
-        .modal-body {
-            display: flex;
+        .modal-scroll {
             flex: 1;
-            overflow: hidden;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            padding: 16px;
         }
 
-        .modal-sidebar {
-            width: 160px;
-            border-right: 1px solid var(--rule);
-            padding: 12px;
+        /* Edit Modal */
+        .edit-layout {
             display: flex;
             flex-direction: column;
+            gap: 12px;
+        }
+
+        @media (min-width: 600px) {
+            .edit-layout {
+                flex-direction: row;
+            }
+        }
+
+        .edit-sidebar {
+            flex-shrink: 0;
+        }
+
+        @media (min-width: 600px) {
+            .edit-sidebar {
+                width: 160px;
+                border-right: 1px solid var(--rule);
+                padding-right: 12px;
+            }
         }
 
         .sidebar-label {
-            font-size: 12px;
+            font-size: 13px;
             color: var(--muted);
             margin-bottom: 8px;
         }
 
         .category-list {
-            flex: 1;
-            overflow-y: auto;
             border: 1px solid var(--rule);
             border-radius: 6px;
             background: var(--bg2);
             margin-bottom: 10px;
+            max-height: 150px;
+            overflow-y: auto;
+        }
+
+        @media (min-width: 600px) {
+            .category-list {
+                max-height: none;
+                flex: 1;
+            }
         }
 
         .category-list-item {
-            padding: 10px 12px;
+            padding: 12px;
             cursor: pointer;
             border-bottom: 1px solid var(--rule);
-            font-size: 14px;
-            transition: background 0.15s;
+            font-size: 15px;
         }
 
         .category-list-item:last-child {
@@ -318,163 +349,54 @@
 
         .sidebar-buttons {
             display: flex;
-            gap: 6px;
+            gap: 8px;
         }
 
         .sidebar-buttons .btn {
             flex: 1;
-            padding: 8px;
-            font-size: 13px;
+            padding: 10px;
+            font-size: 14px;
+            min-height: 40px;
         }
 
-        .modal-content {
+        .edit-content {
             flex: 1;
-            padding: 12px;
             display: flex;
             flex-direction: column;
-            overflow: hidden;
+            min-height: 200px;
         }
 
         .content-label {
-            font-size: 12px;
+            font-size: 13px;
             color: var(--muted);
             margin-bottom: 8px;
         }
 
         .entries-textarea {
+            width: 100%;
             flex: 1;
-            width: 100%;
+            min-height: 150px;
             padding: 12px;
             border: 1px solid var(--rule);
             border-radius: 6px;
             background: var(--bg2);
             color: var(--ink);
-            font-size: 15px;
+            font-size: 16px;
             font-family: inherit;
-            resize: none;
             outline: none;
             line-height: 1.6;
         }
 
-        .entries-textarea:focus {
-            border-color: var(--accent);
-        }
-
-        .modal-footer {
-            padding: 12px 20px;
-            border-top: 1px solid var(--rule);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .modal-footer-right {
-            display: flex;
-            gap: 10px;
-        }
-
-        .rename-input {
-            width: 100%;
-            padding: 6px 8px;
-            border: 1px solid var(--accent);
-            border-radius: 4px;
-            background: var(--bg2);
-            color: var(--ink);
-            font-size: 14px;
-            font-family: inherit;
-            outline: none;
-        }
-
-        /* Result display area */
-        .result-area {
-            margin-top: 20px;
-            padding: 16px;
-            background: var(--bg2);
-            border-radius: var(--radius);
-            border: 1px solid var(--rule);
-        }
-
-        .result-title {
-            font-size: 13px;
-            color: var(--muted);
-            margin-bottom: 10px;
-        }
-
-        .result-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        .result-tag {
-            padding: 8px 14px;
-            background: var(--accent);
-            color: white;
-            border-radius: 20px;
-            font-size: 14px;
-        }
-
-        /* Help modal */
-        .help-content {
-            padding: 20px;
-            max-height: 70vh;
-            overflow-y: auto;
-            line-height: 1.8;
-        }
-
-        .help-content h3 {
-            margin: 16px 0 8px 0;
-            font-size: 15px;
-            color: var(--accent);
-        }
-
-        .help-content h3:first-child {
-            margin-top: 0;
-        }
-
-        .help-content pre {
-            background: var(--bg2);
-            border: 1px solid var(--rule);
-            border-radius: 6px;
-            padding: 12px;
-            margin: 10px 0;
-            font-family: 'Consolas', 'Monaco', monospace;
-            font-size: 13px;
-            white-space: pre-wrap;
-            line-height: 1.6;
-            overflow-x: auto;
-        }
-
-        .help-content p {
-            margin: 8px 0;
-            font-size: 14px;
-        }
-
-        .help-content ul {
-            margin: 8px 0;
-            padding-left: 20px;
-        }
-
-        .help-content li {
-            margin: 6px 0;
-            font-size: 14px;
-        }
-
-        /* Import/Export area */
-        .io-area {
-            padding: 20px;
-        }
-
+        /* IO Modal */
         .io-tip {
-            font-size: 13px;
+            font-size: 14px;
             color: var(--muted);
             margin-bottom: 16px;
-            padding: 10px;
+            padding: 12px;
             background: var(--bg2);
             border-radius: 6px;
-            border-left: 3px solid var(--accent);
+            border-left: 4px solid var(--accent);
+            line-height: 1.5;
         }
 
         .io-buttons {
@@ -485,51 +407,55 @@
         }
 
         .io-btn {
-            padding: 16px;
+            padding: 20px 12px;
             border: 2px dashed var(--rule);
             border-radius: var(--radius);
             background: var(--bg2);
             color: var(--ink);
             cursor: pointer;
             text-align: center;
-            transition: all 0.2s;
-            font-size: 14px;
-        }
-
-        .io-btn:active {
-            transform: scale(0.98);
-            border-color: var(--accent);
+            font-size: 15px;
+            font-family: inherit;
+            min-height: 80px;
         }
 
         .io-btn-icon {
-            font-size: 28px;
+            font-size: 32px;
             margin-bottom: 6px;
         }
 
         .io-btn-text {
-            font-size: 13px;
+            font-size: 12px;
             color: var(--muted);
             margin-top: 4px;
         }
 
+        .switch-row {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .switch-row .btn {
+            flex: 1;
+            font-size: 14px;
+            padding: 10px;
+            min-height: 40px;
+        }
+
         .io-textarea {
             width: 100%;
-            min-height: 180px;
+            min-height: 120px;
             padding: 12px;
             border: 1px solid var(--rule);
             border-radius: 6px;
             background: var(--bg2);
             color: var(--ink);
-            font-size: 14px;
-            font-family: 'Consolas', 'Monaco', monospace;
-            resize: vertical;
+            font-size: 15px;
+            font-family: 'Menlo', 'Consolas', monospace;
             outline: none;
             line-height: 1.6;
             margin-bottom: 12px;
-        }
-
-        .io-textarea:focus {
-            border-color: var(--accent);
         }
 
         .io-preview {
@@ -538,9 +464,7 @@
             border-radius: 6px;
             padding: 12px;
             margin-bottom: 12px;
-            max-height: 120px;
-            overflow-y: auto;
-            font-size: 13px;
+            font-size: 14px;
         }
 
         .io-preview-item {
@@ -561,16 +485,126 @@
             display: none;
         }
 
+        .action-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .action-row .btn {
+            flex: 1;
+        }
+
+        .rename-input {
+            width: 100%;
+            padding: 8px 10px;
+            border: 2px solid var(--accent);
+            border-radius: 4px;
+            background: var(--bg2);
+            color: var(--ink);
+            font-size: 15px;
+            font-family: inherit;
+            outline: none;
+        }
+
+        /* Result */
+        .result-area {
+            margin-top: 20px;
+            padding: 16px;
+            background: var(--bg2);
+            border-radius: var(--radius);
+            border: 1px solid var(--rule);
+        }
+
+        .result-title {
+            font-size: 14px;
+            color: var(--muted);
+            margin-bottom: 10px;
+        }
+
+        .result-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .result-tag {
+            padding: 8px 14px;
+            background: var(--accent);
+            color: white;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+
+        /* Help */
+        .help-content {
+            line-height: 1.8;
+        }
+
+        .help-content h3 {
+            margin: 20px 0 10px 0;
+            font-size: 16px;
+            color: var(--accent);
+        }
+
+        .help-content h3:first-child {
+            margin-top: 0;
+        }
+
+        .help-content pre {
+            background: var(--bg2);
+            border: 1px solid var(--rule);
+            border-radius: 6px;
+            padding: 12px;
+            margin: 10px 0;
+            font-family: 'Menlo', 'Consolas', monospace;
+            font-size: 13px;
+            white-space: pre-wrap;
+            line-height: 1.6;
+            overflow-x: auto;
+        }
+
+        .help-content p {
+            margin: 10px 0;
+            font-size: 15px;
+        }
+
+        .help-content ul {
+            margin: 10px 0;
+            padding-left: 24px;
+        }
+
+        .help-content li {
+            margin: 8px 0;
+            font-size: 15px;
+        }
+
+        /* Modal footer fixed */
+        .modal-footer {
+            padding: 12px 16px;
+            border-top: 1px solid var(--rule);
+            display: flex;
+            gap: 10px;
+            flex-shrink: 0;
+            background: var(--bg);
+            position: sticky;
+            bottom: 0;
+        }
+
+        .modal-footer .btn {
+            flex: 1;
+        }
+
         .toast {
             position: fixed;
-            bottom: 30px;
+            bottom: 40px;
             left: 50%;
             transform: translateX(-50%) translateY(100px);
             background: var(--accent);
             color: white;
-            padding: 12px 24px;
+            padding: 14px 24px;
             border-radius: var(--radius);
-            font-size: 14px;
+            font-size: 15px;
             z-index: 2000;
             opacity: 0;
             transition: all 0.3s;
@@ -584,62 +618,16 @@
             opacity: 1;
         }
 
-        .toast.success {
-            background: var(--success);
-        }
-
-        .toast.error {
-            background: #d32f2f;
-        }
+        .toast.success { background: var(--success); }
+        .toast.error { background: #d32f2f; }
 
         @media (max-width: 480px) {
-            body {
-                padding: 12px;
-            }
-
             .categories-grid {
                 grid-template-columns: 1fr;
             }
-
-            .modal-body {
-                flex-direction: column;
-            }
-
-            .modal-sidebar {
-                width: 100%;
-                border-right: none;
-                border-bottom: 1px solid var(--rule);
-                max-height: 150px;
-            }
-
-            .btn-row {
-                flex-direction: column;
-            }
-
             .io-buttons {
                 grid-template-columns: 1fr;
             }
-
-            .modal-footer {
-                flex-direction: column;
-            }
-
-            .modal-footer-right {
-                width: 100%;
-            }
-
-            .modal-footer-right .btn {
-                flex: 1;
-            }
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.95); }
-            to { opacity: 1; transform: scale(1); }
-        }
-
-        .modal.active .modal {
-            animation: fadeIn 0.2s ease-out;
         }
     </style>
 </head>
@@ -648,10 +636,10 @@
         <div class="header">
             <h1 class="title">Major词条生成器</h1>
             <div class="header-actions">
-                <button class="icon-btn" id="importBtn" title="导入">📥</button>
-                <button class="icon-btn" id="exportBtn" title="导出">📤</button>
-                <button class="icon-btn" id="helpBtn" title="帮助">❓</button>
-                <button class="icon-btn" id="themeBtn" title="主题">☾</button>
+                <button class="icon-btn" id="importBtn">📥</button>
+                <button class="icon-btn" id="exportBtn">📤</button>
+                <button class="icon-btn" id="helpBtn">❓</button>
+                <button class="icon-btn" id="themeBtn">☾</button>
             </div>
         </div>
 
@@ -677,38 +665,37 @@
                 <h2 class="modal-title">编辑词条</h2>
                 <button class="modal-close" id="modalClose">×</button>
             </div>
-            <div class="modal-body">
-                <div class="modal-sidebar">
-                    <div class="sidebar-label">类别（双击重命名）</div>
-                    <div class="category-list" id="modalCategoryList"></div>
-                    <div class="sidebar-buttons">
-                        <button class="btn btn-small" id="addCatBtn">+ 添加</button>
-                        <button class="btn btn-small btn-danger" id="delCatBtn">- 删除</button>
+            <div class="modal-scroll">
+                <div class="edit-layout">
+                    <div class="edit-sidebar">
+                        <div class="sidebar-label">类别（双击重命名）</div>
+                        <div class="category-list" id="modalCategoryList"></div>
+                        <div class="sidebar-buttons">
+                            <button class="btn btn-small" id="addCatBtn">+ 添加</button>
+                            <button class="btn btn-small btn-danger" id="delCatBtn">- 删除</button>
+                        </div>
                     </div>
-                </div>
-                <div class="modal-content">
-                    <div class="content-label" id="entriesLabel">词条（每行一个）</div>
-                    <textarea class="entries-textarea" id="entriesTextarea"></textarea>
+                    <div class="edit-content">
+                        <div class="content-label" id="entriesLabel">词条（每行一个）</div>
+                        <textarea class="entries-textarea" id="entriesTextarea"></textarea>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <div style="font-size:12px;color:var(--muted)">提示：手机推荐用导入/导出功能</div>
-                <div class="modal-footer-right">
-                    <button class="btn btn-secondary btn-small" id="modalCancel">取消</button>
-                    <button class="btn btn-primary btn-small" id="modalSave" style="width:auto;margin:0;">保存</button>
-                </div>
+                <button class="btn btn-secondary btn-small" id="modalCancel">取消</button>
+                <button class="btn btn-primary btn-small" id="modalSave">保存</button>
             </div>
         </div>
     </div>
 
     <!-- Import/Export Modal -->
     <div class="modal-overlay" id="ioModal">
-        <div class="modal" style="max-width: 500px;">
+        <div class="modal">
             <div class="modal-header">
                 <h2 class="modal-title" id="ioModalTitle">导入/导出词条</h2>
                 <button class="modal-close" id="ioModalClose">×</button>
             </div>
-            <div class="io-area">
+            <div class="modal-scroll">
                 <div class="io-tip" id="ioTip">
                     💡 <strong>手机用户推荐：</strong>导出选"复制文本"，导入选"从剪贴板粘贴"，不用找文件！
                 </div>
@@ -740,46 +727,48 @@
                     <input type="file" class="hidden-file-input" id="fileInput" accept=".txt">
                 </div>
 
-                <div style="display:flex;gap:8px;margin-bottom:12px;">
-                    <button class="btn btn-secondary btn-small" id="switchToImport" style="flex:1">切换到导入</button>
-                    <button class="btn btn-secondary btn-small" id="switchToExport" style="flex:1;display:none">切换到导出</button>
+                <div class="switch-row">
+                    <button class="btn btn-secondary btn-small" id="switchToImport">切换到导入</button>
+                    <button class="btn btn-secondary btn-small" id="switchToExport" style="display:none">切换到导出</button>
                 </div>
 
                 <textarea class="io-textarea" id="ioTextarea" placeholder="【种族】&#10;人类&#10;精灵&#10;&#10;【性别】&#10;男&#10;女"></textarea>
                 
                 <div class="io-preview" id="ioPreview" style="display: none;"></div>
                 
-                <div class="btn-row" id="importActionRow" style="display:none;margin:0;">
-                    <button class="btn btn-secondary" id="parseBtn">解析预览</button>
-                    <button class="btn btn-success" id="confirmImportBtn">确认导入</button>
+                <div class="action-row" id="importActionRow" style="display:none;">
+                    <button class="btn btn-secondary btn-small" id="parseBtn">解析预览</button>
+                    <button class="btn btn-success btn-small" id="confirmImportBtn">确认导入</button>
                 </div>
+                <div style="height: 20px;"></div>
             </div>
         </div>
     </div>
 
     <!-- Help Modal -->
     <div class="modal-overlay" id="helpModal">
-        <div class="modal" style="max-width: 520px;">
+        <div class="modal">
             <div class="modal-header">
                 <h2 class="modal-title">使用帮助</h2>
                 <button class="modal-close" id="helpModalClose">×</button>
             </div>
-            <div class="help-content">
-                <h3>📱 iPhone/手机使用方法</h3>
-                <p><strong>导出备份：</strong></p>
-                <ul>
-                    <li>点击📤 → 选择"复制文本"</li>
-                    <li>打开备忘录/微信/QQ，粘贴保存</li>
-                </ul>
-                <p><strong>导入词条：</strong></p>
-                <ul>
-                    <li>先把TXT内容复制到剪贴板</li>
-                    <li>点击📥 → 选择"从剪贴板粘贴"</li>
-                    <li>点击"解析预览" → 确认导入</li>
-                </ul>
+            <div class="modal-scroll">
+                <div class="help-content">
+                    <h3>📱 iPhone/手机使用方法</h3>
+                    <p><strong>导出备份：</strong></p>
+                    <ul>
+                        <li>点击📤 → 选择"复制文本"</li>
+                        <li>打开备忘录/微信/QQ，粘贴保存</li>
+                    </ul>
+                    <p><strong>导入词条：</strong></p>
+                    <ul>
+                        <li>先把TXT内容复制到剪贴板</li>
+                        <li>点击📥 → 选择"从剪贴板粘贴"</li>
+                        <li>自动预览后点击"确认导入"</li>
+                    </ul>
 
-                <h3>📄 TXT格式</h3>
-                <pre>【种族】
+                    <h3>📄 TXT格式</h3>
+                    <pre>【种族】
 人类
 精灵
 兽人
@@ -789,15 +778,17 @@
 女
 其他</pre>
 
-                <h3>⌨️ 快捷键</h3>
-                <ul>
-                    <li><strong>空格键</strong> - 随机生成</li>
-                    <li><strong>锁定</strong> - 固定选项不随机</li>
-                    <li><strong>双击类别</strong> - 重命名</li>
-                </ul>
+                    <h3>⌨️ 快捷键</h3>
+                    <ul>
+                        <li><strong>空格键</strong> - 随机生成</li>
+                        <li><strong>锁定</strong> - 固定选项不随机</li>
+                        <li><strong>双击类别</strong> - 重命名</li>
+                    </ul>
 
-                <h3>💾 数据保存</h3>
-                <p>数据自动保存在浏览器本地。清理浏览器数据会丢失，建议定期用"复制文本"备份到备忘录。</p>
+                    <h3>💾 数据保存</h3>
+                    <p>数据自动保存在浏览器本地。建议定期用"复制文本"备份到备忘录。</p>
+                    <div style="height: 20px;"></div>
+                </div>
             </div>
         </div>
     </div>
@@ -825,7 +816,7 @@
         let currentEditIndex = 0;
         let isRenaming = false;
         let parsedImportData = null;
-        let ioMode = 'export'; // 'export' or 'import'
+        let ioMode = 'export';
 
         function loadData() {
             try {
@@ -879,9 +870,7 @@
             if (navigator.clipboard && navigator.clipboard.writeText) {
                 navigator.clipboard.writeText(text).then(() => {
                     showToast('已复制到剪贴板！', 'success');
-                }).catch(() => {
-                    fallbackCopy(text);
-                });
+                }).catch(() => fallbackCopy(text));
             } else {
                 fallbackCopy(text);
             }
@@ -914,7 +903,7 @@
                     showToast('请手动粘贴到文本框', 'error');
                 }
             } catch (e) {
-                showToast('无法访问剪贴板，请手动粘贴', 'error');
+                showToast('请手动粘贴到文本框', 'error');
             }
         }
 
@@ -1054,10 +1043,12 @@
             renderCatList();
             loadEntries(0);
             document.getElementById('editModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
         }
 
         function closeEdit() {
             document.getElementById('editModal').classList.remove('active');
+            document.body.style.overflow = '';
             isRenaming = false;
         }
 
@@ -1156,10 +1147,12 @@
             ioMode = mode;
             updateIoUI();
             document.getElementById('ioModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
         }
 
         function closeIoModal() {
             document.getElementById('ioModal').classList.remove('active');
+            document.body.style.overflow = '';
         }
 
         function updateIoUI() {
@@ -1175,9 +1168,9 @@
             parsedImportData = null;
             
             if (isExport) {
-                document.getElementById('ioTip').innerHTML = '💡 <strong>手机用户：</strong>点击"复制文本"，然后粘贴到备忘录/微信保存即可，不用找下载的文件！';
+                document.getElementById('ioTip').innerHTML = '💡 <strong>手机用户：</strong>点击"复制文本"，然后粘贴到备忘录/微信保存即可！';
             } else {
-                document.getElementById('ioTip').innerHTML = '💡 <strong>手机用户：</strong>先从备忘录复制内容，再点击"从剪贴板粘贴"，不用找文件！';
+                document.getElementById('ioTip').innerHTML = '💡 <strong>手机用户：</strong>先从备忘录复制内容，再点击"从剪贴板粘贴"！';
             }
         }
 
@@ -1208,7 +1201,10 @@
             document.getElementById('resetBtn').onclick = resetDefault;
             document.getElementById('importBtn').onclick = () => openIo('import');
             document.getElementById('exportBtn').onclick = () => openIo('export');
-            document.getElementById('helpBtn').onclick = () => document.getElementById('helpModal').classList.add('active');
+            document.getElementById('helpBtn').onclick = () => {
+                document.getElementById('helpModal').classList.add('active');
+                document.body.style.overflow = 'hidden';
+            };
 
             document.getElementById('modalClose').onclick = closeEdit;
             document.getElementById('modalCancel').onclick = closeEdit;
@@ -1232,14 +1228,20 @@
                 showPreview(cats);
             };
 
-            document.getElementById('helpModalClose').onclick = () => document.getElementById('helpModal').classList.remove('active');
+            document.getElementById('helpModalClose').onclick = () => {
+                document.getElementById('helpModal').classList.remove('active');
+                document.body.style.overflow = '';
+            };
 
             ['editModal', 'ioModal', 'helpModal'].forEach(id => {
                 document.getElementById(id).onclick = e => {
                     if (e.target.id === id) {
                         if (id === 'editModal') closeEdit();
                         else if (id === 'ioModal') closeIoModal();
-                        else document.getElementById(id).classList.remove('active');
+                        else {
+                            document.getElementById(id).classList.remove('active');
+                            document.body.style.overflow = '';
+                        }
                     }
                 };
             });
@@ -1248,6 +1250,7 @@
                 if (e.key === 'Escape') {
                     closeEdit(); closeIoModal();
                     document.getElementById('helpModal').classList.remove('active');
+                    document.body.style.overflow = '';
                 }
                 if (e.key === ' ' && !e.target.matches('input,textarea,select')) {
                     e.preventDefault();
