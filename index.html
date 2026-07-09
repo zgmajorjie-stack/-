@@ -53,7 +53,7 @@
         }
 
         .container {
-            max-width: 500px;
+            max-width: 1200px;
             margin: 0 auto;
         }
 
@@ -61,7 +61,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
         }
 
         .title {
@@ -75,38 +75,70 @@
         }
 
         .icon-btn {
-            width: 44px;
-            height: 44px;
+            width: 40px;
+            height: 40px;
             border: none;
             border-radius: 50%;
             background: var(--btn-face);
             color: var(--ink);
-            font-size: 20px;
+            font-size: 18px;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
-        .categories-grid {
+        /* Main layout: left panel, right categories */
+        .main-layout {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+        }
+
+        .categories-area {
+            flex: 1;
+            min-width: 0;
+            order: 2;
+        }
+
+        .categories-columns {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: repeat(auto-fill, 170px);
             gap: 10px;
-            margin-bottom: 16px;
+            justify-content: flex-start;
         }
 
         .category-card {
-            background: var(--bg);
+            background: var(--bg2);
             border: 1px solid var(--rule);
             border-radius: var(--radius);
-            padding: 12px;
+            padding: 10px;
+            width: 170px;
+            cursor: grab;
+            transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
+            position: relative;
+        }
+
+        .category-card.dragging {
+            opacity: 0.4;
+            cursor: grabbing;
+            transform: scale(0.98);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .category-card.drag-over {
+            border: 2px dashed var(--accent);
+        }
+
+        .category-card:active {
+            cursor: grabbing;
         }
 
         .category-title {
-            font-size: 15px;
+            font-size: 14px;
             font-weight: bold;
             color: var(--gb-title);
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -115,8 +147,8 @@
         .lock-checkbox {
             display: flex;
             align-items: center;
-            gap: 4px;
-            font-size: 12px;
+            gap: 3px;
+            font-size: 11px;
             font-weight: normal;
             color: var(--muted);
             cursor: pointer;
@@ -125,57 +157,91 @@
 
         .lock-checkbox input {
             cursor: pointer;
-            width: 18px;
-            height: 18px;
+            width: 16px;
+            height: 16px;
         }
 
         .category-select {
             width: 100%;
-            padding: 12px 30px 12px 12px;
+            padding: 8px 28px 8px 8px;
             border: 1px solid var(--rule);
             border-radius: 6px;
-            background: var(--bg2);
+            background: var(--bg);
             color: var(--ink);
-            font-size: 15px;
+            font-size: 14px;
             cursor: pointer;
             outline: none;
             -webkit-appearance: none;
             appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
             background-repeat: no-repeat;
-            background-position: right 12px center;
+            background-position: right 10px center;
+        }
+
+        /* Control panel on left - fixed width, doesn't scale */
+        .sidebar-panel {
+            width: 240px;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            position: sticky;
+            top: 12px;
+            order: 1;
+        }
+
+        .result-area {
+            padding: 12px;
+            background: var(--bg2);
+            border-radius: var(--radius);
+            border: 1px solid var(--rule);
+            max-height: 250px;
+            overflow-y: auto;
+        }
+
+        .result-title {
+            font-size: 13px;
+            color: var(--muted);
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .result-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .result-tag {
+            padding: 5px 10px;
+            background: var(--accent);
+            color: white;
+            border-radius: 14px;
+            font-size: 12px;
+            line-height: 1.4;
         }
 
         .btn {
-            padding: 14px 20px;
+            padding: 12px 16px;
             border: none;
             border-radius: var(--radius);
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 600;
             cursor: pointer;
             font-family: inherit;
-            min-height: 48px;
+            min-height: 44px;
+            transition: opacity 0.2s;
+        }
+
+        .btn:active {
+            opacity: 0.8;
         }
 
         .btn-primary {
             width: 100%;
             background: var(--accent);
             color: white;
-            margin-bottom: 12px;
-            font-size: 18px;
-        }
-
-        .btn-row {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 12px;
-        }
-
-        .btn-row .btn {
-            flex: 1;
-            margin: 0;
-            padding: 12px;
-            font-size: 15px;
+            font-size: 17px;
         }
 
         .btn-secondary {
@@ -184,9 +250,9 @@
         }
 
         .btn-small {
-            padding: 10px 16px;
-            font-size: 14px;
-            min-height: 40px;
+            padding: 8px 12px;
+            font-size: 13px;
+            min-height: 36px;
         }
 
         .btn-danger {
@@ -197,6 +263,27 @@
         .btn-success {
             background: var(--success);
             color: white;
+        }
+
+        .btn-warning {
+            background: #f57c00;
+            color: white;
+        }
+
+        .btn-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+
+        .btn-grid .btn {
+            width: 100%;
+            font-size: 13px;
+            padding: 10px 8px;
+        }
+
+        .btn-full {
+            width: 100%;
         }
 
         /* Modal */
@@ -238,7 +325,7 @@
             }
             .modal {
                 border-radius: 12px;
-                max-width: 550px;
+                max-width: 600px;
                 max-height: 90vh;
                 min-height: auto;
                 box-shadow: 0 10px 40px rgba(0,0,0,0.3);
@@ -319,14 +406,13 @@
             border: 1px solid var(--rule);
             border-radius: 6px;
             background: var(--bg2);
-            margin-bottom: 10px;
             max-height: 150px;
             overflow-y: auto;
         }
 
         @media (min-width: 600px) {
             .category-list {
-                max-height: none;
+                max-height: 350px;
                 flex: 1;
             }
         }
@@ -507,35 +593,6 @@
             outline: none;
         }
 
-        /* Result */
-        .result-area {
-            margin-top: 20px;
-            padding: 16px;
-            background: var(--bg2);
-            border-radius: var(--radius);
-            border: 1px solid var(--rule);
-        }
-
-        .result-title {
-            font-size: 14px;
-            color: var(--muted);
-            margin-bottom: 10px;
-        }
-
-        .result-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        .result-tag {
-            padding: 8px 14px;
-            background: var(--accent);
-            color: white;
-            border-radius: 20px;
-            font-size: 14px;
-        }
-
         /* Help */
         .help-content {
             line-height: 1.8;
@@ -621,20 +678,44 @@
         .toast.success { background: var(--success); }
         .toast.error { background: #d32f2f; }
 
-        @media (max-width: 480px) {
-            .categories-grid {
-                grid-template-columns: 1fr 1fr;
-                gap: 8px;
-            }
-            .category-card {
+        /* 窄屏/竖屏：上下布局，控制面板全宽，类别双列等宽居中 */
+        @media (max-width: 720px) {
+            body {
                 padding: 10px;
             }
+            .main-layout {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .sidebar-panel {
+                width: 100%;
+                position: static;
+                order: -1;
+            }
+            .categories-area {
+                width: 100%;
+                display: flex;
+                justify-content: center;
+            }
+            .categories-columns {
+                grid-template-columns: 1fr 1fr;
+                gap: 8px;
+                max-width: 400px;
+                width: 100%;
+            }
+            .category-card {
+                width: auto;
+                padding: 8px;
+            }
             .category-title {
-                font-size: 14px;
+                font-size: 13px;
             }
             .category-select {
-                font-size: 14px;
-                padding: 10px 28px 10px 10px;
+                font-size: 13px;
+                padding: 7px 26px 7px 7px;
+            }
+            .result-area {
+                max-height: 180px;
             }
             .io-buttons {
                 grid-template-columns: 1fr 1fr;
@@ -655,25 +736,40 @@
         <div class="header">
             <h1 class="title">Major词条生成器</h1>
             <div class="header-actions">
-                <button class="icon-btn" id="importBtn">📥</button>
-                <button class="icon-btn" id="exportBtn">📤</button>
-                <button class="icon-btn" id="helpBtn">❓</button>
-                <button class="icon-btn" id="themeBtn">☾</button>
+                <button class="icon-btn" id="helpBtn" title="帮助">❓</button>
+                <button class="icon-btn" id="themeBtn" title="切换主题">☾</button>
             </div>
         </div>
 
-        <div class="categories-grid" id="categoriesGrid"></div>
+        <div class="main-layout">
+            <!-- Left: Categories -->
+            <div class="categories-area">
+                <div class="categories-columns" id="categoriesGrid"></div>
+            </div>
 
-        <button class="btn btn-primary" id="generateBtn">🎲 随机生成</button>
-        
-        <div class="btn-row">
-            <button class="btn btn-secondary" id="editBtn">✏️ 编辑词条</button>
-            <button class="btn btn-secondary" id="resetBtn">🔄 重置默认</button>
-        </div>
+            <!-- Right: Control Panel -->
+            <div class="sidebar-panel">
+                <button class="btn btn-primary" id="generateBtn">🎲 随机生成</button>
 
-        <div class="result-area" id="resultArea" style="display: none;">
-            <div class="result-title">生成结果：</div>
-            <div class="result-tags" id="resultTags"></div>
+                <div class="result-area" id="resultArea" style="display: none;">
+                    <div class="result-title">生成结果：</div>
+                    <div class="result-tags" id="resultTags"></div>
+                </div>
+
+                <div class="btn-grid">
+                    <button class="btn btn-secondary" id="unlockAllBtn">🔓 全部解锁</button>
+                    <button class="btn btn-secondary" id="lockAllBtn">🔒 全部锁定</button>
+                </div>
+
+                <button class="btn btn-secondary btn-full" id="editBtn">✏️ 编辑词条</button>
+
+                <div class="btn-grid">
+                    <button class="btn btn-secondary" id="importBtn">📥 导入</button>
+                    <button class="btn btn-secondary" id="exportBtn">📤 导出</button>
+                </div>
+
+                <button class="btn btn-danger btn-small btn-full" id="resetBtn">🔄 重置默认</button>
+            </div>
         </div>
     </div>
 
@@ -688,11 +784,11 @@
                 <div class="edit-layout">
                     <div class="edit-sidebar">
                         <div class="sidebar-label">类别（双击重命名）</div>
-                        <div class="category-list" id="modalCategoryList"></div>
-                        <div class="sidebar-buttons">
+                        <div class="sidebar-buttons" style="margin-bottom: 10px;">
                             <button class="btn btn-small" id="addCatBtn">+ 添加</button>
                             <button class="btn btn-small btn-danger" id="delCatBtn">- 删除</button>
                         </div>
+                        <div class="category-list" id="modalCategoryList"></div>
                     </div>
                     <div class="edit-content">
                         <div class="content-label" id="entriesLabel">词条（每行一个）</div>
@@ -800,8 +896,11 @@
                     <h3>⌨️ 快捷键</h3>
                     <ul>
                         <li><strong>空格键</strong> - 随机生成</li>
+                        <li><strong>双击类别名称</strong> - 直接重命名</li>
+                        <li><strong>拖动类别卡片</strong> - 调整类别顺序</li>
+                        <li><strong>手机长按类别卡片</strong> - 触发拖动排序</li>
                         <li><strong>锁定</strong> - 固定选项不随机</li>
-                        <li><strong>双击类别</strong> - 重命名</li>
+                        <li><strong>全部解锁/锁定</strong> - 一键操作所有类别</li>
                     </ul>
 
                     <h3>💾 数据保存</h3>
@@ -1000,12 +1099,14 @@
             data.categories.forEach((cat, i) => {
                 const card = document.createElement('div');
                 card.className = 'category-card';
+                card.draggable = true;
+                card.dataset.index = i;
                 card.innerHTML = `
                     <div class="category-title">
-                        <span>${escHtml(cat.name)}</span>
+                        <span class="cat-name" title="双击重命名，长按拖动排序">${escHtml(cat.name)}</span>
                         <label class="lock-checkbox">
                             <input type="checkbox" class="lock-check" data-i="${i}" ${cat.locked ? 'checked' : ''}>
-                            锁定
+                            锁
                         </label>
                     </div>
                     <select class="category-select" data-i="${i}">
@@ -1013,19 +1114,194 @@
                     </select>`;
                 grid.appendChild(card);
             });
+
+            // 锁定复选框
             document.querySelectorAll('.lock-check').forEach(cb => {
                 cb.onchange = e => {
+                    e.stopPropagation();
                     data.categories[+e.target.dataset.i].locked = e.target.checked;
                     saveData();
                 };
             });
+
+            // 下拉选择
             document.querySelectorAll('.category-select').forEach(sel => {
                 sel.onchange = e => {
                     data.categories[+e.target.dataset.i].selected = e.target.value;
                     saveData();
                     updateResult();
                 };
+                // 阻止下拉选择时触发拖拽
+                sel.onmousedown = e => e.stopPropagation();
+                sel.ontouchstart = e => e.stopPropagation();
             });
+
+            // 双击重命名
+            document.querySelectorAll('.cat-name').forEach((nameEl, i) => {
+                nameEl.ondblclick = e => {
+                    e.stopPropagation();
+                    startRenameInline(i, nameEl);
+                };
+            });
+
+            // 拖拽排序 - 桌面端
+            let dragSrcIndex = null;
+            document.querySelectorAll('.category-card').forEach(card => {
+                card.ondragstart = e => {
+                    dragSrcIndex = +card.dataset.index;
+                    card.classList.add('dragging');
+                    e.dataTransfer.effectAllowed = 'move';
+                };
+                card.ondragend = () => {
+                    card.classList.remove('dragging');
+                    document.querySelectorAll('.category-card').forEach(c => c.classList.remove('drag-over'));
+                };
+                card.ondragover = e => {
+                    e.preventDefault();
+                    e.dataTransfer.dropEffect = 'move';
+                };
+                card.ondragenter = e => {
+                    e.preventDefault();
+                    if (+card.dataset.index !== dragSrcIndex) {
+                        card.classList.add('drag-over');
+                    }
+                };
+                card.ondragleave = () => {
+                    card.classList.remove('drag-over');
+                };
+                card.ondrop = e => {
+                    e.preventDefault();
+                    card.classList.remove('drag-over');
+                    const targetIndex = +card.dataset.index;
+                    if (dragSrcIndex !== null && dragSrcIndex !== targetIndex) {
+                        reorderCategories(dragSrcIndex, targetIndex);
+                    }
+                    dragSrcIndex = null;
+                };
+            });
+
+            // 长按拖拽 - 手机触摸端
+            let touchTimer = null;
+            let touchDragging = false;
+            let touchSrcIndex = null;
+            let touchClone = null;
+
+            document.querySelectorAll('.category-card').forEach(card => {
+                card.addEventListener('touchstart', e => {
+                    if (e.target.tagName === 'SELECT' || e.target.tagName === 'INPUT' || e.target.tagName === 'LABEL') return;
+                    const idx = +card.dataset.index;
+                    touchSrcIndex = idx;
+                    touchTimer = setTimeout(() => {
+                        touchDragging = true;
+                        card.classList.add('dragging');
+                        // 创建拖拽克隆
+                        touchClone = card.cloneNode(true);
+                        touchClone.style.position = 'fixed';
+                        touchClone.style.pointerEvents = 'none';
+                        touchClone.style.zIndex = '9999';
+                        touchClone.style.width = card.offsetWidth + 'px';
+                        touchClone.style.opacity = '0.8';
+                        touchClone.style.transform = 'scale(1.05)';
+                        document.body.appendChild(touchClone);
+                        showToast('拖动到目标位置松开', '');
+                    }, 500);
+                }, { passive: true });
+
+                card.addEventListener('touchmove', e => {
+                    if (!touchDragging || !touchClone) return;
+                    e.preventDefault();
+                    const touch = e.touches[0];
+                    touchClone.style.left = (touch.clientX - touchClone.offsetWidth / 2) + 'px';
+                    touchClone.style.top = (touch.clientY - touchClone.offsetHeight / 2) + 'px';
+                    
+                    // 检测悬停目标
+                    const elemBelow = document.elementFromPoint(touch.clientX, touch.clientY);
+                    const targetCard = elemBelow?.closest('.category-card');
+                    document.querySelectorAll('.category-card').forEach(c => c.classList.remove('drag-over'));
+                    if (targetCard && +targetCard.dataset.index !== touchSrcIndex) {
+                        targetCard.classList.add('drag-over');
+                    }
+                }, { passive: false });
+
+                card.addEventListener('touchend', e => {
+                    if (touchTimer) {
+                        clearTimeout(touchTimer);
+                        touchTimer = null;
+                    }
+                    if (!touchDragging) return;
+                    
+                    card.classList.remove('dragging');
+                    document.querySelectorAll('.category-card').forEach(c => c.classList.remove('drag-over'));
+                    
+                    // 获取释放位置
+                    const touch = e.changedTouches[0];
+                    const elemBelow = document.elementFromPoint(touch.clientX, touch.clientY);
+                    const targetCard = elemBelow?.closest('.category-card');
+                    
+                    if (touchClone) {
+                        document.body.removeChild(touchClone);
+                        touchClone = null;
+                    }
+                    
+                    if (targetCard && touchSrcIndex !== null) {
+                        const targetIndex = +targetCard.dataset.index;
+                        if (targetIndex !== touchSrcIndex) {
+                            reorderCategories(touchSrcIndex, targetIndex);
+                        }
+                    }
+                    
+                    touchDragging = false;
+                    touchSrcIndex = null;
+                });
+
+                card.addEventListener('touchcancel', () => {
+                    if (touchTimer) clearTimeout(touchTimer);
+                    if (touchClone) document.body.removeChild(touchClone);
+                    card.classList.remove('dragging');
+                    document.querySelectorAll('.category-card').forEach(c => c.classList.remove('drag-over'));
+                    touchDragging = false;
+                    touchClone = null;
+                    touchSrcIndex = null;
+                });
+            });
+        }
+
+        function reorderCategories(fromIdx, toIdx) {
+            const [moved] = data.categories.splice(fromIdx, 1);
+            data.categories.splice(toIdx, 0, moved);
+            saveData();
+            renderCategories();
+            updateResult();
+        }
+
+        function startRenameInline(i, nameEl) {
+            const oldName = data.categories[i].name;
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.className = 'rename-input';
+            input.value = oldName;
+            input.style.padding = '2px 4px';
+            input.style.fontSize = '14px';
+            nameEl.replaceWith(input);
+            input.focus();
+            input.select();
+
+            const finish = () => {
+                const newName = input.value.trim();
+                if (newName && newName !== oldName) {
+                    data.categories[i].name = newName;
+                    saveData();
+                    showToast('已重命名为：' + newName, 'success');
+                }
+                renderCategories();
+                updateResult();
+            };
+
+            input.onblur = finish;
+            input.onkeydown = e => {
+                if (e.key === 'Enter') { e.preventDefault(); input.blur(); }
+                if (e.key === 'Escape') { renderCategories(); updateResult(); }
+            };
         }
 
         function updateResult() {
@@ -1054,6 +1330,20 @@
             saveData();
             renderCategories();
             updateResult();
+        }
+
+        function unlockAll() {
+            data.categories.forEach(c => c.locked = false);
+            saveData();
+            renderCategories();
+            showToast('已全部解锁', 'success');
+        }
+
+        function lockAll() {
+            data.categories.forEach(c => c.locked = true);
+            saveData();
+            renderCategories();
+            showToast('已全部锁定', 'success');
         }
 
         function openEdit() {
@@ -1133,23 +1423,54 @@
 
         function addCat() {
             saveEntries();
-            const name = prompt('请输入新类别名称：');
-            if (name && name.trim()) {
-                data.categories.push({ name: name.trim(), entries: ['新词条'], locked: false, selected: '' });
-                currentEditIndex = data.categories.length - 1;
-                renderCatList();
-                loadEntries(currentEditIndex);
-            }
+            const list = document.getElementById('modalCategoryList');
+            const inputDiv = document.createElement('div');
+            inputDiv.style.padding = '10px';
+            inputDiv.style.borderBottom = '1px solid var(--rule)';
+            inputDiv.innerHTML = '<input type="text" class="rename-input" id="newCatInput" placeholder="输入新类别名称，回车确认">';
+            list.insertBefore(inputDiv, list.firstChild);
+            
+            const input = document.getElementById('newCatInput');
+            input.focus();
+            
+            const finishAdd = () => {
+                const name = input.value.trim();
+                if (name) {
+                    data.categories.push({ name: name, entries: ['新词条'], locked: false, selected: '' });
+                    currentEditIndex = data.categories.length - 1;
+                    renderCatList();
+                    loadEntries(currentEditIndex);
+                    showToast('已添加类别：' + name, 'success');
+                } else {
+                    renderCatList();
+                }
+            };
+            
+            input.onblur = finishAdd;
+            input.onkeydown = e => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    input.blur();
+                }
+                if (e.key === 'Escape') {
+                    renderCatList();
+                }
+            };
         }
 
         function delCat() {
-            if (data.categories.length <= 1) { alert('至少保留一个类别'); return; }
-            if (confirm('确定删除"' + data.categories[currentEditIndex].name + '"？')) {
+            if (data.categories.length <= 1) {
+                showToast('至少保留一个类别', 'error');
+                return;
+            }
+            const catName = data.categories[currentEditIndex].name;
+            if (confirm('确定删除"' + catName + '"？')) {
                 saveEntries();
                 data.categories.splice(currentEditIndex, 1);
                 if (currentEditIndex >= data.categories.length) currentEditIndex = data.categories.length - 1;
                 renderCatList();
                 loadEntries(currentEditIndex);
+                showToast('已删除：' + catName, 'success');
             }
         }
 
@@ -1216,6 +1537,8 @@
 
             document.getElementById('themeBtn').onclick = () => setTheme(document.documentElement.getAttribute('data-theme') !== 'dark');
             document.getElementById('generateBtn').onclick = generateRandom;
+            document.getElementById('unlockAllBtn').onclick = unlockAll;
+            document.getElementById('lockAllBtn').onclick = lockAll;
             document.getElementById('editBtn').onclick = openEdit;
             document.getElementById('resetBtn').onclick = resetDefault;
             document.getElementById('importBtn').onclick = () => openIo('import');
