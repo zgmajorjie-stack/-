@@ -48,6 +48,7 @@
             min-height: 100vh;
             padding: 20px;
             transition: background 0.3s, color 0.3s;
+            -webkit-tap-highlight-color: transparent;
         }
 
         .container {
@@ -73,13 +74,13 @@
         }
 
         .icon-btn {
-            width: 36px;
-            height: 36px;
+            width: 40px;
+            height: 40px;
             border: none;
             border-radius: 50%;
             background: var(--btn-face);
             color: var(--ink);
-            font-size: 16px;
+            font-size: 18px;
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -87,8 +88,8 @@
             transition: all 0.2s;
         }
 
-        .icon-btn:hover {
-            transform: scale(1.1);
+        .icon-btn:active {
+            transform: scale(0.95);
         }
 
         .categories-grid {
@@ -123,15 +124,18 @@
             font-weight: normal;
             color: var(--muted);
             cursor: pointer;
+            user-select: none;
         }
 
         .lock-checkbox input {
             cursor: pointer;
+            width: 16px;
+            height: 16px;
         }
 
         .category-select {
             width: 100%;
-            padding: 8px 10px;
+            padding: 10px;
             border: 1px solid var(--rule);
             border-radius: 6px;
             background: var(--bg2);
@@ -140,6 +144,12 @@
             cursor: pointer;
             outline: none;
             transition: border-color 0.2s;
+            -webkit-appearance: none;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            padding-right: 30px;
         }
 
         .category-select:focus {
@@ -157,19 +167,17 @@
             font-family: inherit;
         }
 
+        .btn:active {
+            transform: scale(0.98);
+        }
+
         .btn-primary {
             width: 100%;
             background: var(--accent);
             color: white;
             margin-bottom: 10px;
-            padding: 14px 20px;
-            font-size: 16px;
-        }
-
-        .btn-primary:hover {
-            background: var(--accent-hover);
-            transform: translateY(-1px);
-            box-shadow: var(--shadow);
+            padding: 16px 20px;
+            font-size: 17px;
         }
 
         .btn-row {
@@ -181,24 +189,17 @@
         .btn-row .btn {
             flex: 1;
             margin: 0;
-            padding: 10px 12px;
-            font-size: 13px;
+            padding: 12px;
+            font-size: 14px;
         }
 
         .btn-secondary {
-            display: block;
-            margin: 0 auto;
             background: var(--btn-face);
             color: var(--ink);
-            padding: 10px 24px;
-        }
-
-        .btn-secondary:hover {
-            opacity: 0.9;
         }
 
         .btn-small {
-            padding: 6px 12px;
+            padding: 8px 14px;
             font-size: 13px;
         }
 
@@ -207,17 +208,9 @@
             color: white;
         }
 
-        .btn-danger:hover {
-            background: #b71c1c;
-        }
-
         .btn-success {
             background: var(--success);
             color: white;
-        }
-
-        .btn-success:hover {
-            opacity: 0.9;
         }
 
         /* Modal */
@@ -232,7 +225,7 @@
             z-index: 1000;
             align-items: center;
             justify-content: center;
-            padding: 20px;
+            padding: 16px;
         }
 
         .modal-overlay.active {
@@ -264,22 +257,17 @@
         }
 
         .modal-close {
-            width: 28px;
-            height: 28px;
+            width: 32px;
+            height: 32px;
             border: none;
             background: transparent;
             color: var(--muted);
-            font-size: 20px;
+            font-size: 24px;
             cursor: pointer;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-        }
-
-        .modal-close:hover {
-            background: var(--btn-face);
-            color: var(--ink);
         }
 
         .modal-body {
@@ -289,7 +277,7 @@
         }
 
         .modal-sidebar {
-            width: 180px;
+            width: 160px;
             border-right: 1px solid var(--rule);
             padding: 12px;
             display: flex;
@@ -312,7 +300,7 @@
         }
 
         .category-list-item {
-            padding: 8px 12px;
+            padding: 10px 12px;
             cursor: pointer;
             border-bottom: 1px solid var(--rule);
             font-size: 14px;
@@ -321,10 +309,6 @@
 
         .category-list-item:last-child {
             border-bottom: none;
-        }
-
-        .category-list-item:hover {
-            background: var(--btn-face);
         }
 
         .category-list-item.active {
@@ -360,12 +344,12 @@
         .entries-textarea {
             flex: 1;
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             border: 1px solid var(--rule);
             border-radius: 6px;
             background: var(--bg2);
             color: var(--ink);
-            font-size: 14px;
+            font-size: 15px;
             font-family: inherit;
             resize: none;
             outline: none;
@@ -383,6 +367,7 @@
             justify-content: space-between;
             align-items: center;
             gap: 10px;
+            flex-wrap: wrap;
         }
 
         .modal-footer-right {
@@ -390,10 +375,9 @@
             gap: 10px;
         }
 
-        /* Rename input */
         .rename-input {
             width: 100%;
-            padding: 4px 6px;
+            padding: 6px 8px;
             border: 1px solid var(--accent);
             border-radius: 4px;
             background: var(--bg2);
@@ -425,11 +409,11 @@
         }
 
         .result-tag {
-            padding: 6px 12px;
+            padding: 8px 14px;
             background: var(--accent);
             color: white;
             border-radius: 20px;
-            font-size: 13px;
+            font-size: 14px;
         }
 
         /* Help modal */
@@ -460,6 +444,7 @@
             font-size: 13px;
             white-space: pre-wrap;
             line-height: 1.6;
+            overflow-x: auto;
         }
 
         .help-content p {
@@ -473,43 +458,63 @@
         }
 
         .help-content li {
-            margin: 4px 0;
+            margin: 6px 0;
             font-size: 14px;
         }
 
-        /* Import area */
-        .import-area {
+        /* Import/Export area */
+        .io-area {
             padding: 20px;
         }
 
-        .drop-zone {
-            border: 2px dashed var(--rule);
-            border-radius: var(--radius);
-            padding: 40px 20px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.2s;
+        .io-tip {
+            font-size: 13px;
+            color: var(--muted);
+            margin-bottom: 16px;
+            padding: 10px;
+            background: var(--bg2);
+            border-radius: 6px;
+            border-left: 3px solid var(--accent);
+        }
+
+        .io-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
             margin-bottom: 16px;
         }
 
-        .drop-zone:hover, .drop-zone.dragover {
-            border-color: var(--accent);
+        .io-btn {
+            padding: 16px;
+            border: 2px dashed var(--rule);
+            border-radius: var(--radius);
             background: var(--bg2);
-        }
-
-        .drop-zone-icon {
-            font-size: 40px;
-            margin-bottom: 10px;
-        }
-
-        .drop-zone-text {
+            color: var(--ink);
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.2s;
             font-size: 14px;
-            color: var(--muted);
         }
 
-        .import-textarea {
+        .io-btn:active {
+            transform: scale(0.98);
+            border-color: var(--accent);
+        }
+
+        .io-btn-icon {
+            font-size: 28px;
+            margin-bottom: 6px;
+        }
+
+        .io-btn-text {
+            font-size: 13px;
+            color: var(--muted);
+            margin-top: 4px;
+        }
+
+        .io-textarea {
             width: 100%;
-            min-height: 200px;
+            min-height: 180px;
             padding: 12px;
             border: 1px solid var(--rule);
             border-radius: 6px;
@@ -523,31 +528,31 @@
             margin-bottom: 12px;
         }
 
-        .import-textarea:focus {
+        .io-textarea:focus {
             border-color: var(--accent);
         }
 
-        .import-preview {
+        .io-preview {
             background: var(--bg2);
             border: 1px solid var(--rule);
             border-radius: 6px;
             padding: 12px;
             margin-bottom: 12px;
-            max-height: 150px;
+            max-height: 120px;
             overflow-y: auto;
             font-size: 13px;
         }
 
-        .import-preview-item {
+        .io-preview-item {
             padding: 4px 0;
         }
 
-        .import-preview-cat {
+        .io-preview-cat {
             font-weight: bold;
             color: var(--accent);
         }
 
-        .import-preview-count {
+        .io-preview-count {
             color: var(--muted);
             margin-left: 8px;
         }
@@ -556,10 +561,9 @@
             display: none;
         }
 
-        /* Toast notification */
         .toast {
             position: fixed;
-            bottom: 20px;
+            bottom: 30px;
             left: 50%;
             transform: translateX(-50%) translateY(100px);
             background: var(--accent);
@@ -571,6 +575,8 @@
             opacity: 0;
             transition: all 0.3s;
             box-shadow: var(--shadow);
+            text-align: center;
+            max-width: 90%;
         }
 
         .toast.show {
@@ -586,7 +592,6 @@
             background: #d32f2f;
         }
 
-        /* Responsive */
         @media (max-width: 480px) {
             body {
                 padding: 12px;
@@ -604,15 +609,30 @@
                 width: 100%;
                 border-right: none;
                 border-bottom: 1px solid var(--rule);
-                max-height: 180px;
+                max-height: 150px;
             }
 
             .btn-row {
                 flex-direction: column;
             }
+
+            .io-buttons {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-footer {
+                flex-direction: column;
+            }
+
+            .modal-footer-right {
+                width: 100%;
+            }
+
+            .modal-footer-right .btn {
+                flex: 1;
+            }
         }
 
-        /* Animation */
         @keyframes fadeIn {
             from { opacity: 0; transform: scale(0.95); }
             to { opacity: 1; transform: scale(1); }
@@ -621,27 +641,21 @@
         .modal.active .modal {
             animation: fadeIn 0.2s ease-out;
         }
-
-        .result-tag {
-            animation: fadeIn 0.3s ease-out;
-        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1 class="title">Major词条生成器 2.0</h1>
+            <h1 class="title">Major词条生成器</h1>
             <div class="header-actions">
-                <button class="icon-btn" id="importBtn" title="导入TXT">📥</button>
-                <button class="icon-btn" id="exportBtn" title="导出TXT">📤</button>
-                <button class="icon-btn" id="helpBtn" title="使用帮助">❓</button>
-                <button class="icon-btn" id="themeBtn" title="切换主题">☾</button>
+                <button class="icon-btn" id="importBtn" title="导入">📥</button>
+                <button class="icon-btn" id="exportBtn" title="导出">📤</button>
+                <button class="icon-btn" id="helpBtn" title="帮助">❓</button>
+                <button class="icon-btn" id="themeBtn" title="主题">☾</button>
             </div>
         </div>
 
-        <div class="categories-grid" id="categoriesGrid">
-            <!-- Categories will be rendered here -->
-        </div>
+        <div class="categories-grid" id="categoriesGrid"></div>
 
         <button class="btn btn-primary" id="generateBtn">🎲 随机生成</button>
         
@@ -660,12 +674,12 @@
     <div class="modal-overlay" id="editModal">
         <div class="modal">
             <div class="modal-header">
-                <h2 class="modal-title">编辑词条与类别</h2>
+                <h2 class="modal-title">编辑词条</h2>
                 <button class="modal-close" id="modalClose">×</button>
             </div>
             <div class="modal-body">
                 <div class="modal-sidebar">
-                    <div class="sidebar-label">类别列表（双击重命名）</div>
+                    <div class="sidebar-label">类别（双击重命名）</div>
                     <div class="category-list" id="modalCategoryList"></div>
                     <div class="sidebar-buttons">
                         <button class="btn btn-small" id="addCatBtn">+ 添加</button>
@@ -674,102 +688,123 @@
                 </div>
                 <div class="modal-content">
                     <div class="content-label" id="entriesLabel">词条（每行一个）</div>
-                    <textarea class="entries-textarea" id="entriesTextarea" placeholder="每行输入一个词条..."></textarea>
+                    <textarea class="entries-textarea" id="entriesTextarea"></textarea>
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-small btn-secondary" id="modalImportBtn">📥 从TXT导入到当前类别</button>
+                <div style="font-size:12px;color:var(--muted)">提示：手机推荐用导入/导出功能</div>
                 <div class="modal-footer-right">
-                    <button class="btn btn-secondary" id="modalCancel">取消</button>
-                    <button class="btn btn-primary btn-small" id="modalSave" style="width: auto; margin: 0;">保存</button>
+                    <button class="btn btn-secondary btn-small" id="modalCancel">取消</button>
+                    <button class="btn btn-primary btn-small" id="modalSave" style="width:auto;margin:0;">保存</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Import Modal -->
-    <div class="modal-overlay" id="importModal">
-        <div class="modal" style="max-width: 550px;">
+    <!-- Import/Export Modal -->
+    <div class="modal-overlay" id="ioModal">
+        <div class="modal" style="max-width: 500px;">
             <div class="modal-header">
-                <h2 class="modal-title">导入TXT词条</h2>
-                <button class="modal-close" id="importModalClose">×</button>
+                <h2 class="modal-title" id="ioModalTitle">导入/导出词条</h2>
+                <button class="modal-close" id="ioModalClose">×</button>
             </div>
-            <div class="import-area">
-                <div class="drop-zone" id="dropZone">
-                    <div class="drop-zone-icon">📄</div>
-                    <div class="drop-zone-text">点击或拖拽TXT文件到这里<br>也可以直接在下方粘贴内容</div>
+            <div class="io-area">
+                <div class="io-tip" id="ioTip">
+                    💡 <strong>手机用户推荐：</strong>导出选"复制文本"，导入选"从剪贴板粘贴"，不用找文件！
+                </div>
+
+                <div class="io-buttons" id="exportButtons">
+                    <button class="io-btn" id="copyBtn">
+                        <div class="io-btn-icon">📋</div>
+                        <div>复制文本</div>
+                        <div class="io-btn-text">推荐手机用</div>
+                    </button>
+                    <button class="io-btn" id="downloadBtn">
+                        <div class="io-btn-icon">💾</div>
+                        <div>下载TXT文件</div>
+                        <div class="io-btn-text">电脑用</div>
+                    </button>
+                </div>
+
+                <div class="io-buttons" id="importButtons" style="display:none;">
+                    <button class="io-btn" id="pasteBtn">
+                        <div class="io-btn-icon">📋</div>
+                        <div>从剪贴板粘贴</div>
+                        <div class="io-btn-text">推荐手机用</div>
+                    </button>
+                    <button class="io-btn" id="selectFileBtn">
+                        <div class="io-btn-icon">📁</div>
+                        <div>选择TXT文件</div>
+                        <div class="io-btn-text">电脑用</div>
+                    </button>
                     <input type="file" class="hidden-file-input" id="fileInput" accept=".txt">
                 </div>
-                
-                <textarea class="import-textarea" id="importTextarea" placeholder="【种族】&#10;人类&#10;精灵&#10;兽人&#10;&#10;【性别】&#10;男&#10;女"></textarea>
-                
-                <div class="import-preview" id="importPreview" style="display: none;"></div>
-                
-                <div class="btn-row" style="margin: 0;">
-                    <button class="btn btn-secondary" id="parseBtn">解析预览</button>
-                    <button class="btn btn-success" id="confirmImportBtn">确认导入（覆盖全部）</button>
+
+                <div style="display:flex;gap:8px;margin-bottom:12px;">
+                    <button class="btn btn-secondary btn-small" id="switchToImport" style="flex:1">切换到导入</button>
+                    <button class="btn btn-secondary btn-small" id="switchToExport" style="flex:1;display:none">切换到导出</button>
                 </div>
-                <p style="font-size: 12px; color: var(--muted); margin-top: 10px; text-align: center;">
-                    导入将覆盖所有现有类别和词条，请先导出备份
-                </p>
+
+                <textarea class="io-textarea" id="ioTextarea" placeholder="【种族】&#10;人类&#10;精灵&#10;&#10;【性别】&#10;男&#10;女"></textarea>
+                
+                <div class="io-preview" id="ioPreview" style="display: none;"></div>
+                
+                <div class="btn-row" id="importActionRow" style="display:none;margin:0;">
+                    <button class="btn btn-secondary" id="parseBtn">解析预览</button>
+                    <button class="btn btn-success" id="confirmImportBtn">确认导入</button>
+                </div>
             </div>
         </div>
     </div>
 
     <!-- Help Modal -->
     <div class="modal-overlay" id="helpModal">
-        <div class="modal" style="max-width: 550px;">
+        <div class="modal" style="max-width: 520px;">
             <div class="modal-header">
-                <h2 class="modal-title">使用帮助 - TXT格式说明</h2>
+                <h2 class="modal-title">使用帮助</h2>
                 <button class="modal-close" id="helpModalClose">×</button>
             </div>
             <div class="help-content">
-                <h3>TXT文件格式</h3>
-                <p>使用 <strong>【类别名】</strong> 标记每个类别的开始，下面每行写一个词条，类别之间用空行分隔。</p>
+                <h3>📱 iPhone/手机使用方法</h3>
+                <p><strong>导出备份：</strong></p>
+                <ul>
+                    <li>点击📤 → 选择"复制文本"</li>
+                    <li>打开备忘录/微信/QQ，粘贴保存</li>
+                </ul>
+                <p><strong>导入词条：</strong></p>
+                <ul>
+                    <li>先把TXT内容复制到剪贴板</li>
+                    <li>点击📥 → 选择"从剪贴板粘贴"</li>
+                    <li>点击"解析预览" → 确认导入</li>
+                </ul>
+
+                <h3>📄 TXT格式</h3>
                 <pre>【种族】
 人类
 精灵
 兽人
-异形
 
 【性别】
 男
 女
-其他
+其他</pre>
 
-【职业】
-战士
-法师
-刺客</pre>
-
-                <h3>格式规则</h3>
+                <h3>⌨️ 快捷键</h3>
                 <ul>
-                    <li>类别名必须放在 <strong>【】</strong> 括号中（中文方括号）</li>
-                    <li>每个词条单独占一行</li>
-                    <li>不同类别之间用空行分隔</li>
-                    <li>支持中文、英文、数字和符号</li>
-                    <li>空行会被自动忽略</li>
+                    <li><strong>空格键</strong> - 随机生成</li>
+                    <li><strong>锁定</strong> - 固定选项不随机</li>
+                    <li><strong>双击类别</strong> - 重命名</li>
                 </ul>
 
-                <h3>快捷操作</h3>
-                <ul>
-                    <li><strong>空格键</strong> - 随机生成新词条</li>
-                    <li><strong>锁定</strong> - 勾选后随机时不会改变该选项</li>
-                    <li><strong>双击类别名</strong> - 在编辑窗口中可以重命名</li>
-                    <li><strong>导出TXT</strong> - 备份你的词条数据</li>
-                </ul>
-
-                <h3>数据保存</h3>
-                <p>所有数据自动保存在浏览器本地存储中。建议定期导出TXT备份，换设备或清理浏览器数据时可以重新导入。</p>
+                <h3>💾 数据保存</h3>
+                <p>数据自动保存在浏览器本地。清理浏览器数据会丢失，建议定期用"复制文本"备份到备忘录。</p>
             </div>
         </div>
     </div>
 
-    <!-- Toast -->
     <div class="toast" id="toast"></div>
 
     <script>
-        // ==================== Data Management ====================
         const STORAGE_KEY = 'major_word_generator_data';
         const THEME_KEY = 'major_word_generator_theme';
 
@@ -790,84 +825,101 @@
         let currentEditIndex = 0;
         let isRenaming = false;
         let parsedImportData = null;
+        let ioMode = 'export'; // 'export' or 'import'
 
         function loadData() {
-            const saved = localStorage.getItem(STORAGE_KEY);
-            if (saved) {
-                try {
-                    return JSON.parse(saved);
-                } catch (e) {
-                    return JSON.parse(JSON.stringify(defaultData));
-                }
+            try {
+                const saved = localStorage.getItem(STORAGE_KEY);
+                return saved ? JSON.parse(saved) : JSON.parse(JSON.stringify(defaultData));
+            } catch (e) {
+                return JSON.parse(JSON.stringify(defaultData));
             }
-            return JSON.parse(JSON.stringify(defaultData));
         }
 
         function saveData() {
             localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
         }
 
-        // ==================== Toast ====================
-        function showToast(message, type = '') {
-            const toast = document.getElementById('toast');
-            toast.textContent = message;
-            toast.className = 'toast show ' + type;
-            setTimeout(() => {
-                toast.className = 'toast ' + type;
-            }, 2500);
+        function showToast(msg, type = '') {
+            const t = document.getElementById('toast');
+            t.textContent = msg;
+            t.className = 'toast show ' + type;
+            setTimeout(() => t.className = 'toast ' + type, 2500);
         }
 
-        // ==================== TXT Import/Export ====================
-        function parseTxtContent(content) {
-            const lines = content.replace(/\r\n/g, '\n').replace(/\r/g, '\n').split('\n');
-            const categories = [];
-            let currentCat = null;
+        function generateTxt() {
+            let txt = '';
+            data.categories.forEach((cat, i) => {
+                if (i > 0) txt += '\n\n';
+                txt += '【' + cat.name + '】\n' + cat.entries.join('\n');
+            });
+            return txt;
+        }
 
+        function parseTxt(content) {
+            const lines = content.replace(/\r\n/g, '\n').replace(/\r/g, '\n').split('\n');
+            const cats = [];
+            let cur = null;
             for (let line of lines) {
                 line = line.trim();
-                
-                // Match category header: 【xxx】 or [xxx]
-                const catMatch = line.match(/^[【\[](.+?)[】\]]$/);
-                if (catMatch) {
-                    if (currentCat && currentCat.entries.length > 0) {
-                        categories.push(currentCat);
-                    }
-                    currentCat = {
-                        name: catMatch[1].trim(),
-                        entries: [],
-                        locked: false,
-                        selected: ''
-                    };
+                const m = line.match(/^[【\[](.+?)[】\]]$/);
+                if (m) {
+                    if (cur && cur.entries.length) cats.push(cur);
+                    cur = { name: m[1].trim(), entries: [], locked: false, selected: '' };
                     continue;
                 }
-
-                // Skip empty lines if no current category or if entries is empty (leading blank lines)
-                if (line === '') {
-                    continue;
-                }
-
-                // Add entry to current category
-                if (currentCat) {
-                    currentCat.entries.push(line);
-                }
+                if (line === '') continue;
+                if (cur) cur.entries.push(line);
             }
-
-            // Push the last category
-            if (currentCat && currentCat.entries.length > 0) {
-                categories.push(currentCat);
-            }
-
-            return categories;
+            if (cur && cur.entries.length) cats.push(cur);
+            return cats;
         }
 
-        function exportToTxt() {
-            let txt = '';
-            data.categories.forEach((cat, index) => {
-                if (index > 0) txt += '\n\n';
-                txt += '【' + cat.name + '】\n';
-                txt += cat.entries.join('\n');
-            });
+        function copyToClipboard(text) {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(() => {
+                    showToast('已复制到剪贴板！', 'success');
+                }).catch(() => {
+                    fallbackCopy(text);
+                });
+            } else {
+                fallbackCopy(text);
+            }
+        }
 
+        function fallbackCopy(text) {
+            const ta = document.createElement('textarea');
+            ta.value = text;
+            ta.style.position = 'fixed';
+            ta.style.left = '-9999px';
+            document.body.appendChild(ta);
+            ta.select();
+            try {
+                document.execCommand('copy');
+                showToast('已复制到剪贴板！', 'success');
+            } catch (e) {
+                showToast('复制失败，请手动复制', 'error');
+            }
+            document.body.removeChild(ta);
+        }
+
+        async function pasteFromClipboard() {
+            try {
+                if (navigator.clipboard && navigator.clipboard.readText) {
+                    const text = await navigator.clipboard.readText();
+                    document.getElementById('ioTextarea').value = text;
+                    showPreview(parseTxt(text));
+                    showToast('已从剪贴板粘贴', 'success');
+                } else {
+                    showToast('请手动粘贴到文本框', 'error');
+                }
+            } catch (e) {
+                showToast('无法访问剪贴板，请手动粘贴', 'error');
+            }
+        }
+
+        function downloadTxt() {
+            const txt = generateTxt();
             const blob = new Blob([txt], { type: 'text/plain;charset=utf-8' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
@@ -877,26 +929,25 @@
             a.click();
             document.body.removeChild(a);
             URL.revokeObjectURL(url);
-            showToast('导出成功！', 'success');
+            showToast('下载成功！', 'success');
         }
 
-        function showImportPreview(categories) {
-            const preview = document.getElementById('importPreview');
-            if (!categories || categories.length === 0) {
-                preview.style.display = 'none';
+        function showPreview(cats) {
+            const p = document.getElementById('ioPreview');
+            if (!cats || cats.length === 0) {
+                p.style.display = 'none';
                 parsedImportData = null;
                 return;
             }
-
-            parsedImportData = categories;
-            preview.style.display = 'block';
-            preview.innerHTML = '<strong>解析成功！共 ' + categories.length + ' 个类别：</strong><br><br>';
-            categories.forEach(cat => {
-                const div = document.createElement('div');
-                div.className = 'import-preview-item';
-                div.innerHTML = '<span class="import-preview-cat">' + escapeHtml(cat.name) + '</span>' +
-                    '<span class="import-preview-count">' + cat.entries.length + ' 个词条</span>';
-                preview.appendChild(div);
+            parsedImportData = cats;
+            p.style.display = 'block';
+            p.innerHTML = '<strong>解析到 ' + cats.length + ' 个类别：</strong><br><br>';
+            cats.forEach(c => {
+                const d = document.createElement('div');
+                d.className = 'io-preview-item';
+                d.innerHTML = '<span class="io-preview-cat">' + escHtml(c.name) + '</span>' +
+                    '<span class="io-preview-count">' + c.entries.length + ' 个词条</span>';
+                p.appendChild(d);
             });
         }
 
@@ -905,418 +956,300 @@
                 showToast('没有可导入的数据', 'error');
                 return;
             }
-
             data.categories = parsedImportData;
             saveData();
             renderCategories();
             generateRandom();
-            closeImportModal();
-            showToast('导入成功！共 ' + parsedImportData.length + ' 个类别', 'success');
+            closeIoModal();
+            showToast('导入成功！', 'success');
             parsedImportData = null;
         }
 
-        function importToCurrentCategory() {
-            const text = document.getElementById('entriesTextarea').value;
-            // Simple import: just treat pasted text as entries
-            saveCurrentEntries();
-            showToast('已保存当前类别的修改', 'success');
+        function handleFile(file) {
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = e => {
+                document.getElementById('ioTextarea').value = e.target.result;
+                showPreview(parseTxt(e.target.result));
+            };
+            reader.readAsText(file, 'UTF-8');
         }
 
-        function resetToDefault() {
-            if (confirm('确定要重置为默认词条吗？当前自定义内容将被清除。建议先导出备份。')) {
-                data = JSON.parse(JSON.stringify(defaultData));
-                saveData();
-                renderCategories();
-                generateRandom();
-                showToast('已重置为默认词条', 'success');
-            }
-        }
-
-        // ==================== Theme Management ====================
         function initTheme() {
-            const savedTheme = localStorage.getItem(THEME_KEY);
-            const isDark = savedTheme === 'dark';
-            setTheme(isDark);
+            const dark = localStorage.getItem(THEME_KEY) === 'dark';
+            setTheme(dark);
         }
 
-        function setTheme(isDark) {
-            document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
-            document.getElementById('themeBtn').textContent = isDark ? '☀' : '☾';
-            localStorage.setItem(THEME_KEY, isDark ? 'dark' : 'light');
+        function setTheme(dark) {
+            document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+            document.getElementById('themeBtn').textContent = dark ? '☀' : '☾';
+            localStorage.setItem(THEME_KEY, dark ? 'dark' : 'light');
         }
 
-        function toggleTheme() {
-            const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-            setTheme(!isDark);
-        }
-
-        // ==================== Rendering ====================
         function renderCategories() {
             const grid = document.getElementById('categoriesGrid');
             grid.innerHTML = '';
-
-            data.categories.forEach((cat, index) => {
+            data.categories.forEach((cat, i) => {
                 const card = document.createElement('div');
                 card.className = 'category-card';
                 card.innerHTML = `
                     <div class="category-title">
-                        <span>${escapeHtml(cat.name)}</span>
+                        <span>${escHtml(cat.name)}</span>
                         <label class="lock-checkbox">
-                            <input type="checkbox" class="lock-check" data-index="${index}" ${cat.locked ? 'checked' : ''}>
+                            <input type="checkbox" class="lock-check" data-i="${i}" ${cat.locked ? 'checked' : ''}>
                             锁定
                         </label>
                     </div>
-                    <select class="category-select" data-index="${index}">
-                        ${cat.entries.map(e => `<option value="${escapeHtml(e)}" ${e === cat.selected ? 'selected' : ''}>${escapeHtml(e)}</option>`).join('')}
-                    </select>
-                `;
+                    <select class="category-select" data-i="${i}">
+                        ${cat.entries.map(e => `<option value="${escHtml(e)}" ${e === cat.selected ? 'selected' : ''}>${escHtml(e)}</option>`).join('')}
+                    </select>`;
                 grid.appendChild(card);
             });
-
-            // Add event listeners
             document.querySelectorAll('.lock-check').forEach(cb => {
-                cb.addEventListener('change', (e) => {
-                    const idx = parseInt(e.target.dataset.index);
-                    data.categories[idx].locked = e.target.checked;
+                cb.onchange = e => {
+                    data.categories[+e.target.dataset.i].locked = e.target.checked;
                     saveData();
-                });
+                };
             });
-
             document.querySelectorAll('.category-select').forEach(sel => {
-                sel.addEventListener('change', (e) => {
-                    const idx = parseInt(e.target.dataset.index);
-                    data.categories[idx].selected = e.target.value;
+                sel.onchange = e => {
+                    data.categories[+e.target.dataset.i].selected = e.target.value;
                     saveData();
-                    updateResultDisplay();
-                });
+                    updateResult();
+                };
             });
         }
 
-        function updateResultDisplay() {
-            const resultArea = document.getElementById('resultArea');
-            const resultTags = document.getElementById('resultTags');
-            
-            const hasSelection = data.categories.some(c => c.selected);
-            if (!hasSelection) {
-                resultArea.style.display = 'none';
-                return;
-            }
-
-            resultArea.style.display = 'block';
-            resultTags.innerHTML = '';
-
-            data.categories.forEach(cat => {
-                if (cat.selected) {
-                    const tag = document.createElement('span');
-                    tag.className = 'result-tag';
-                    tag.textContent = `${cat.name}: ${cat.selected}`;
-                    resultTags.appendChild(tag);
+        function updateResult() {
+            const area = document.getElementById('resultArea');
+            const tags = document.getElementById('resultTags');
+            const has = data.categories.some(c => c.selected);
+            area.style.display = has ? 'block' : 'none';
+            if (!has) return;
+            tags.innerHTML = '';
+            data.categories.forEach(c => {
+                if (c.selected) {
+                    const t = document.createElement('span');
+                    t.className = 'result-tag';
+                    t.textContent = c.name + ': ' + c.selected;
+                    tags.appendChild(t);
                 }
             });
         }
 
         function generateRandom() {
-            data.categories.forEach(cat => {
-                if (!cat.locked && cat.entries.length > 0) {
-                    const randomIdx = Math.floor(Math.random() * cat.entries.length);
-                    cat.selected = cat.entries[randomIdx];
+            data.categories.forEach(c => {
+                if (!c.locked && c.entries.length) {
+                    c.selected = c.entries[Math.floor(Math.random() * c.entries.length)];
                 }
             });
             saveData();
             renderCategories();
-            updateResultDisplay();
+            updateResult();
         }
 
-        // ==================== Edit Modal ====================
-        function openEditModal() {
+        function openEdit() {
             currentEditIndex = 0;
             isRenaming = false;
-            renderModalCategoryList();
-            loadCategoryEntries(0);
+            renderCatList();
+            loadEntries(0);
             document.getElementById('editModal').classList.add('active');
         }
 
-        function closeEditModal() {
+        function closeEdit() {
             document.getElementById('editModal').classList.remove('active');
             isRenaming = false;
         }
 
-        function renderModalCategoryList() {
+        function renderCatList() {
             const list = document.getElementById('modalCategoryList');
             list.innerHTML = '';
-
-            data.categories.forEach((cat, index) => {
-                const item = document.createElement('div');
-                item.className = `category-list-item ${index === currentEditIndex ? 'active' : ''}`;
-                item.dataset.index = index;
-                item.textContent = cat.name;
-                list.appendChild(item);
-            });
-
-            // Click to select
-            list.querySelectorAll('.category-list-item').forEach(item => {
-                item.addEventListener('click', () => {
+            data.categories.forEach((cat, i) => {
+                const d = document.createElement('div');
+                d.className = 'category-list-item' + (i === currentEditIndex ? ' active' : '');
+                d.textContent = cat.name;
+                d.onclick = () => {
                     if (isRenaming) return;
-                    saveCurrentEntries();
-                    currentEditIndex = parseInt(item.dataset.index);
-                    renderModalCategoryList();
-                    loadCategoryEntries(currentEditIndex);
-                });
-
-                item.addEventListener('dblclick', () => {
-                    startRenaming(parseInt(item.dataset.index));
-                });
+                    saveEntries();
+                    currentEditIndex = i;
+                    renderCatList();
+                    loadEntries(i);
+                };
+                d.ondblclick = () => startRename(i);
+                list.appendChild(d);
             });
         }
 
-        function loadCategoryEntries(index) {
-            if (index < 0 || index >= data.categories.length) return;
-            const cat = data.categories[index];
-            document.getElementById('entriesLabel').textContent = `词条 - ${cat.name}（每行一个）`;
-            document.getElementById('entriesTextarea').value = cat.entries.join('\n');
+        function loadEntries(i) {
+            document.getElementById('entriesLabel').textContent = '词条 - ' + data.categories[i].name + '（每行一个）';
+            document.getElementById('entriesTextarea').value = data.categories[i].entries.join('\n');
         }
 
-        function saveCurrentEntries() {
-            const textarea = document.getElementById('entriesTextarea');
-            const entries = textarea.value.split('\n')
-                .map(e => e.trim())
-                .filter(e => e.length > 0);
-            
+        function saveEntries() {
+            const list = document.getElementById('entriesTextarea').value.split('\n').map(e => e.trim()).filter(e => e);
             if (currentEditIndex >= 0 && currentEditIndex < data.categories.length) {
-                data.categories[currentEditIndex].entries = entries.length > 0 ? entries : [' '];
-                if (!entries.includes(data.categories[currentEditIndex].selected)) {
-                    data.categories[currentEditIndex].selected = entries[0] || '';
+                data.categories[currentEditIndex].entries = list.length ? list : [' '];
+                if (!list.includes(data.categories[currentEditIndex].selected)) {
+                    data.categories[currentEditIndex].selected = list[0] || '';
                 }
             }
         }
 
-        function startRenaming(index) {
+        function startRename(i) {
             isRenaming = true;
-            currentEditIndex = index;
-            const cat = data.categories[index];
-            const list = document.getElementById('modalCategoryList');
-            const items = list.querySelectorAll('.category-list-item');
-            
-            items.forEach((item, i) => {
-                if (i === index) {
-                    item.innerHTML = `<input type="text" class="rename-input" value="${escapeHtml(cat.name)}">`;
-                    const input = item.querySelector('input');
-                    input.focus();
-                    input.select();
-
-                    const finishRename = () => {
-                        const newName = input.value.trim();
-                        if (newName) {
-                            data.categories[index].name = newName;
-                        }
+            currentEditIndex = i;
+            const items = document.getElementById('modalCategoryList').querySelectorAll('.category-list-item');
+            items.forEach((it, idx) => {
+                if (idx === i) {
+                    it.innerHTML = '<input type="text" class="rename-input" value="' + escHtml(data.categories[i].name) + '">';
+                    const inp = it.querySelector('input');
+                    inp.focus();
+                    inp.select();
+                    const done = () => {
+                        const v = inp.value.trim();
+                        if (v) data.categories[i].name = v;
                         isRenaming = false;
-                        renderModalCategoryList();
-                        loadCategoryEntries(currentEditIndex);
+                        renderCatList();
+                        loadEntries(currentEditIndex);
                     };
-
-                    input.addEventListener('blur', finishRename);
-                    input.addEventListener('keydown', (e) => {
-                        if (e.key === 'Enter') {
-                            e.preventDefault();
-                            input.blur();
-                        }
-                        if (e.key === 'Escape') {
-                            isRenaming = false;
-                            renderModalCategoryList();
-                            loadCategoryEntries(currentEditIndex);
-                        }
-                    });
+                    inp.onblur = done;
+                    inp.onkeydown = e => {
+                        if (e.key === 'Enter') { e.preventDefault(); inp.blur(); }
+                        if (e.key === 'Escape') { isRenaming = false; renderCatList(); loadEntries(currentEditIndex); }
+                    };
                 }
             });
         }
 
-        function addCategory() {
-            saveCurrentEntries();
+        function addCat() {
+            saveEntries();
             const name = prompt('请输入新类别名称：');
             if (name && name.trim()) {
-                data.categories.push({
-                    name: name.trim(),
-                    entries: ['新词条'],
-                    locked: false,
-                    selected: ''
-                });
+                data.categories.push({ name: name.trim(), entries: ['新词条'], locked: false, selected: '' });
                 currentEditIndex = data.categories.length - 1;
-                renderModalCategoryList();
-                loadCategoryEntries(currentEditIndex);
+                renderCatList();
+                loadEntries(currentEditIndex);
             }
         }
 
-        function deleteCategory() {
-            if (data.categories.length <= 1) {
-                alert('至少需要保留一个类别。');
-                return;
-            }
-            const cat = data.categories[currentEditIndex];
-            if (confirm(`确定要删除类别"${cat.name}"吗？`)) {
-                saveCurrentEntries();
+        function delCat() {
+            if (data.categories.length <= 1) { alert('至少保留一个类别'); return; }
+            if (confirm('确定删除"' + data.categories[currentEditIndex].name + '"？')) {
+                saveEntries();
                 data.categories.splice(currentEditIndex, 1);
-                if (currentEditIndex >= data.categories.length) {
-                    currentEditIndex = data.categories.length - 1;
-                }
-                renderModalCategoryList();
-                loadCategoryEntries(currentEditIndex);
+                if (currentEditIndex >= data.categories.length) currentEditIndex = data.categories.length - 1;
+                renderCatList();
+                loadEntries(currentEditIndex);
             }
         }
 
-        function saveModal() {
-            saveCurrentEntries();
+        function saveEdit() {
+            saveEntries();
             saveData();
             renderCategories();
-            updateResultDisplay();
-            closeEditModal();
+            updateResult();
+            closeEdit();
             showToast('保存成功', 'success');
         }
 
-        function cancelModal() {
-            data = loadData();
-            closeEditModal();
+        function openIo(mode) {
+            ioMode = mode;
+            updateIoUI();
+            document.getElementById('ioModal').classList.add('active');
         }
 
-        // ==================== Import Modal ====================
-        function openImportModal() {
-            document.getElementById('importTextarea').value = '';
-            document.getElementById('importPreview').style.display = 'none';
+        function closeIoModal() {
+            document.getElementById('ioModal').classList.remove('active');
+        }
+
+        function updateIoUI() {
+            const isExport = ioMode === 'export';
+            document.getElementById('ioModalTitle').textContent = isExport ? '导出词条' : '导入词条';
+            document.getElementById('exportButtons').style.display = isExport ? 'grid' : 'none';
+            document.getElementById('importButtons').style.display = isExport ? 'none' : 'grid';
+            document.getElementById('switchToImport').style.display = isExport ? 'block' : 'none';
+            document.getElementById('switchToExport').style.display = isExport ? 'none' : 'block';
+            document.getElementById('importActionRow').style.display = isExport ? 'none' : 'flex';
+            document.getElementById('ioTextarea').value = isExport ? generateTxt() : '';
+            document.getElementById('ioPreview').style.display = 'none';
             parsedImportData = null;
-            document.getElementById('importModal').classList.add('active');
-        }
-
-        function closeImportModal() {
-            document.getElementById('importModal').classList.remove('active');
-        }
-
-        function handleFileSelect(file) {
-            if (!file) return;
-            if (!file.name.endsWith('.txt')) {
-                showToast('请选择TXT文件', 'error');
-                return;
+            
+            if (isExport) {
+                document.getElementById('ioTip').innerHTML = '💡 <strong>手机用户：</strong>点击"复制文本"，然后粘贴到备忘录/微信保存即可，不用找下载的文件！';
+            } else {
+                document.getElementById('ioTip').innerHTML = '💡 <strong>手机用户：</strong>先从备忘录复制内容，再点击"从剪贴板粘贴"，不用找文件！';
             }
-
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                const content = e.target.result;
-                document.getElementById('importTextarea').value = content;
-                const categories = parseTxtContent(content);
-                showImportPreview(categories);
-            };
-            reader.readAsText(file, 'UTF-8');
         }
 
-        // ==================== Help Modal ====================
-        function openHelpModal() {
-            document.getElementById('helpModal').classList.add('active');
+        function resetDefault() {
+            if (confirm('确定重置为默认词条吗？建议先导出备份。')) {
+                data = JSON.parse(JSON.stringify(defaultData));
+                saveData();
+                renderCategories();
+                generateRandom();
+                showToast('已重置', 'success');
+            }
         }
 
-        function closeHelpModal() {
-            document.getElementById('helpModal').classList.remove('active');
+        function escHtml(s) {
+            const d = document.createElement('div');
+            d.textContent = s;
+            return d.innerHTML;
         }
 
-        // ==================== Utility ====================
-        function escapeHtml(text) {
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
-        }
-
-        // ==================== Initialization ====================
         function init() {
             initTheme();
             renderCategories();
-            
-            const hasSelection = data.categories.some(c => c.selected);
-            if (!hasSelection) {
-                generateRandom();
-            } else {
-                updateResultDisplay();
-            }
+            data.categories.some(c => c.selected) ? updateResult() : generateRandom();
 
-            // Main buttons
-            document.getElementById('themeBtn').addEventListener('click', toggleTheme);
-            document.getElementById('generateBtn').addEventListener('click', generateRandom);
-            document.getElementById('editBtn').addEventListener('click', openEditModal);
-            document.getElementById('resetBtn').addEventListener('click', resetToDefault);
-            document.getElementById('importBtn').addEventListener('click', openImportModal);
-            document.getElementById('exportBtn').addEventListener('click', exportToTxt);
-            document.getElementById('helpBtn').addEventListener('click', openHelpModal);
+            document.getElementById('themeBtn').onclick = () => setTheme(document.documentElement.getAttribute('data-theme') !== 'dark');
+            document.getElementById('generateBtn').onclick = generateRandom;
+            document.getElementById('editBtn').onclick = openEdit;
+            document.getElementById('resetBtn').onclick = resetDefault;
+            document.getElementById('importBtn').onclick = () => openIo('import');
+            document.getElementById('exportBtn').onclick = () => openIo('export');
+            document.getElementById('helpBtn').onclick = () => document.getElementById('helpModal').classList.add('active');
 
-            // Edit modal
-            document.getElementById('modalClose').addEventListener('click', cancelModal);
-            document.getElementById('modalCancel').addEventListener('click', cancelModal);
-            document.getElementById('modalSave').addEventListener('click', saveModal);
-            document.getElementById('addCatBtn').addEventListener('click', addCategory);
-            document.getElementById('delCatBtn').addEventListener('click', deleteCategory);
-            document.getElementById('modalImportBtn').addEventListener('click', () => {
-                // Quick import from clipboard-like simple paste
-                saveCurrentEntries();
-                showToast('已保存当前修改', 'success');
+            document.getElementById('modalClose').onclick = closeEdit;
+            document.getElementById('modalCancel').onclick = closeEdit;
+            document.getElementById('modalSave').onclick = saveEdit;
+            document.getElementById('addCatBtn').onclick = addCat;
+            document.getElementById('delCatBtn').onclick = delCat;
+
+            document.getElementById('ioModalClose').onclick = closeIoModal;
+            document.getElementById('switchToImport').onclick = () => { ioMode = 'import'; updateIoUI(); };
+            document.getElementById('switchToExport').onclick = () => { ioMode = 'export'; updateIoUI(); };
+            document.getElementById('copyBtn').onclick = () => copyToClipboard(generateTxt());
+            document.getElementById('downloadBtn').onclick = downloadTxt;
+            document.getElementById('pasteBtn').onclick = pasteFromClipboard;
+            document.getElementById('selectFileBtn').onclick = () => document.getElementById('fileInput').click();
+            document.getElementById('parseBtn').onclick = () => showPreview(parseTxt(document.getElementById('ioTextarea').value));
+            document.getElementById('confirmImportBtn').onclick = doImport;
+            document.getElementById('fileInput').onchange = e => e.target.files[0] && handleFile(e.target.files[0]);
+
+            document.getElementById('ioTextarea').oninput = () => {
+                const cats = parseTxt(document.getElementById('ioTextarea').value);
+                showPreview(cats);
+            };
+
+            document.getElementById('helpModalClose').onclick = () => document.getElementById('helpModal').classList.remove('active');
+
+            ['editModal', 'ioModal', 'helpModal'].forEach(id => {
+                document.getElementById(id).onclick = e => {
+                    if (e.target.id === id) {
+                        if (id === 'editModal') closeEdit();
+                        else if (id === 'ioModal') closeIoModal();
+                        else document.getElementById(id).classList.remove('active');
+                    }
+                };
             });
 
-            // Import modal
-            document.getElementById('importModalClose').addEventListener('click', closeImportModal);
-            document.getElementById('parseBtn').addEventListener('click', () => {
-                const content = document.getElementById('importTextarea').value;
-                const categories = parseTxtContent(content);
-                showImportPreview(categories);
-                if (categories.length === 0) {
-                    showToast('未能解析到任何类别，请检查格式', 'error');
-                }
-            });
-            document.getElementById('confirmImportBtn').addEventListener('click', doImport);
-
-            // File drop zone
-            const dropZone = document.getElementById('dropZone');
-            const fileInput = document.getElementById('fileInput');
-
-            dropZone.addEventListener('click', () => fileInput.click());
-            fileInput.addEventListener('change', (e) => {
-                if (e.target.files.length > 0) {
-                    handleFileSelect(e.target.files[0]);
-                }
-            });
-
-            dropZone.addEventListener('dragover', (e) => {
-                e.preventDefault();
-                dropZone.classList.add('dragover');
-            });
-
-            dropZone.addEventListener('dragleave', () => {
-                dropZone.classList.remove('dragover');
-            });
-
-            dropZone.addEventListener('drop', (e) => {
-                e.preventDefault();
-                dropZone.classList.remove('dragover');
-                if (e.dataTransfer.files.length > 0) {
-                    handleFileSelect(e.dataTransfer.files[0]);
-                }
-            });
-
-            // Help modal
-            document.getElementById('helpModalClose').addEventListener('click', closeHelpModal);
-
-            // Close modals on overlay click
-            document.getElementById('editModal').addEventListener('click', (e) => {
-                if (e.target.id === 'editModal') cancelModal();
-            });
-            document.getElementById('importModal').addEventListener('click', (e) => {
-                if (e.target.id === 'importModal') closeImportModal();
-            });
-            document.getElementById('helpModal').addEventListener('click', (e) => {
-                if (e.target.id === 'helpModal') closeHelpModal();
-            });
-
-            // Keyboard shortcuts
-            document.addEventListener('keydown', (e) => {
+            document.addEventListener('keydown', e => {
                 if (e.key === 'Escape') {
-                    if (document.getElementById('editModal').classList.contains('active')) cancelModal();
-                    if (document.getElementById('importModal').classList.contains('active')) closeImportModal();
-                    if (document.getElementById('helpModal').classList.contains('active')) closeHelpModal();
+                    closeEdit(); closeIoModal();
+                    document.getElementById('helpModal').classList.remove('active');
                 }
-                if (e.key === ' ' && !e.target.matches('input, textarea, select')) {
+                if (e.key === ' ' && !e.target.matches('input,textarea,select')) {
                     e.preventDefault();
                     generateRandom();
                 }
