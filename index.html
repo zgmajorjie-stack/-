@@ -916,6 +916,7 @@
     <script>
         const STORAGE_KEY = 'major_word_generator_data';
         const THEME_KEY = 'major_word_generator_theme';
+        const USER_DEFAULT_KEY = 'major_word_generator_user_default';
 
         const defaultData = {
             categories: [
@@ -931,6 +932,7 @@
         };
 
         let data = loadData();
+        let userDefaultData = loadUserDefault();
         let currentEditIndex = 0;
         let isRenaming = false;
         let parsedImportData = null;
@@ -947,6 +949,21 @@
 
         function saveData() {
             localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+        }
+
+        function loadUserDefault() {
+            try {
+                const saved = localStorage.getItem(USER_DEFAULT_KEY);
+                return saved ? JSON.parse(saved) : null;
+            } catch (e) {
+                return null;
+            }
+        }
+
+        function saveUserDefault(categories) {
+            const defaultObj = { categories: categories };
+            localStorage.setItem(USER_DEFAULT_KEY, JSON.stringify(defaultObj));
+            userDefaultData = defaultObj;
         }
 
         function showToast(msg, type = '') {
@@ -1063,12 +1080,14 @@
                 showToast('没有可导入的数据', 'error');
                 return;
             }
-            data.categories = parsedImportData;
+            const importedCategories = JSON.parse(JSON.stringify(parsedImportData));
+            data.categories = importedCategories;
             saveData();
+            saveUserDefault(importedCategories);
             renderCategories();
             generateRandom();
             closeIoModal();
-            showToast('导入成功！', 'success');
+            showToast('导入成功！已设为重置基准', 'success');
             parsedImportData = null;
         }
 
@@ -1515,12 +1534,22 @@
         }
 
         function resetDefault() {
-            if (confirm('确定重置为默认词条吗？建议先导出备份。')) {
-                data = JSON.parse(JSON.stringify(defaultData));
+            const hasUserDefault = userDefaultData && userDefaultData.categories && userDefaultData.categories.length > 0;
+            const confirmMsg = hasUserDefault 
+                ? '确定重置为首次导入的词条吗？建议先导出备份。' 
+                : '确定重置为默认词条吗？建议先导出备份。';
+            
+            if (confirm(confirmMsg)) {
+                if (hasUserDefault) {
+                    data = JSON.parse(JSON.stringify(userDefaultData));
+                    showToast('已重置为导入时的词条', 'success');
+                } else {
+                    data = JSON.parse(JSON.stringify(defaultData));
+                    showToast('已重置为默认词条', 'success');
+                }
                 saveData();
                 renderCategories();
                 generateRandom();
-                showToast('已重置', 'success');
             }
         }
 
